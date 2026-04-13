@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'utilisateur{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Modifier l'utilisateur</h1>
+
+        <div>
+            {{ form(form) }}
+
+            <a href="{{ path('app_user_listuser__invoke') }}">
+                Retour à la liste
+            </a>
+        </div>
+
+        <div>
+            <h2>Zone de danger</h2>
+            {# Important: à ne pas faire comme ceci, simplification pour l'exercice ! #}
+            <form method="post" action="{{ path('app_user_deleteuser__invoke', {'id': user.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                <button type="submit">
+                    Supprimer cet utilisateur
+                </button>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
